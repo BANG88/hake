@@ -1,3 +1,5 @@
+/// <reference path="../typings/index.d.ts" />
+
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 
@@ -32,7 +34,7 @@ export interface options {
    * 
    * @memberOf options
    */
-  rooterReducers?
+  rooterReducers?: {}
 }
 
 /**
@@ -40,7 +42,7 @@ export interface options {
  * @param {options} options 
  * @param {string} target the target render to
  */
-export default ({routes, initialState = Map(), rooterReducers}: options, target = 'root') => {
+export default ({routes, initialState = Map(), rooterReducers = {}}: options, target = 'root') => {
 
   const store = configureStore(initialState, rooterReducers)
   /**

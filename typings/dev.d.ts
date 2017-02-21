@@ -65,3 +65,9 @@ declare var process: {
         NODE_ENV?: string
     }
 }
+/**
+ * fix antd 2.7.2 typing error will remove on the next release.
+ */
+declare module '*package.json' {
+    export const version: string
+}
