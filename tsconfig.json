@@ -21,7 +21,7 @@
   },
   "files": [
     "src/index.tsx",
-    "dev.d.ts"
+    "typings/index.d.ts"
   ],
   "exclude": [
     "node_modules",

@@ -9,7 +9,7 @@
   },
   "files": [
     "dist/",
-    "dev.d.ts",
+    "typings/",
     "yarn.lock"
   ],
   "typings": "dist/index.d.ts",
