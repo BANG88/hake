@@ -52,7 +52,7 @@ function configReducer(store: any, rooterReducers) {
     /** 
      * store rooterReducers first time or it will be lost
      */
-    store.asyncReducers = rooterReducers
+    store.asyncReducers = { ...rooterReducers }
     // add injectReducer to store,so we no need to import from sub routes anymore
     store.injectReducer = ({ key, reducer }) => {
         injectReducer(store, { key, reducer })

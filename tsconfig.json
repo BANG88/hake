@@ -20,7 +20,8 @@
     "allowSyntheticDefaultImports": true
   },
   "files": [
-    "src/index.tsx"
+    "src/index.tsx",
+    "./typings/index.d.ts"
   ],
   "exclude": [
     "node_modules",
