@@ -9,30 +9,52 @@ import { syncHistoryWithStore } from 'react-router-redux'
 
 import configureStore from './utils/configureStore'
 
-/**
- * initial state
- */
-const initialState = Map()
-const store = configureStore(initialState)
-/**
- * sync history with immutable support
- */
-const history = syncHistoryWithStore(browserHistory, store, {
-  selectLocationState(state: any) {
-    return state.get('routing').toJS()
-  }
-})
-type routes = (store: Store) => RouteConfig
+
+export type Routes = (store: Store) => RouteConfig
+export interface options {
+  /**
+   * Can be a function with store parameter or a RouteConfig route
+   * 
+   * @type {(Routes | RouteConfig)}
+   * @memberOf options
+   */
+  routes: Routes | RouteConfig
+  /**
+   * Can be Map or any immutable type
+   * 
+   * 
+   * @memberOf options
+   */
+  initialState?
+  /**
+   * Can be an object within {key:Function}
+   * 
+   * 
+   * @memberOf options
+   */
+  rooterReducers?
+}
+
 /**
  * configure routes and starts the app
- * @param {any} routes Can be a function with store parameter or a RouteConfig route
+ * @param {options} options 
  * @param {string} target the target render to
  */
-export default (routes: routes | any, target = 'root') => {
+export default ({routes, initialState = Map(), rooterReducers}: options, target = 'root') => {
 
+  const store = configureStore(initialState, rooterReducers)
+  /**
+   * sync history with immutable support
+   */
+  const history = syncHistoryWithStore(browserHistory, store, {
+    selectLocationState(state: any) {
+      return state.get('routing').toJS()
+    }
+  })
   if (typeof routes === 'function') {
     routes = routes(store)
   }
+
   /**
    * here we go
    */
