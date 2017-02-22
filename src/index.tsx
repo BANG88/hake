@@ -35,7 +35,7 @@ export interface options {
    * @memberOf options
    */
   asyncReducers?: {}
-  history: History
+  history?: History
   rootReducer?: Function
   /**
    * custom render,you can add other Provider like react-intl .
