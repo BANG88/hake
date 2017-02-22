@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux-immutable'
+
 import routerReducer from './routerReducer'
 /**
  * make root reducers
@@ -16,9 +17,26 @@ export const makeRootReducer = (asyncReducers: {}) => {
  * @param {any} store
  * @param {{key:string,reducer:Function}} 
  */
-export const injectReducer = (store, { key, reducer }) => {
+export const injectReducer = (store, { key, reducer }, rootReducer?: Function) => {
+  /**
+   * add reducer to asyncReducers
+   */
   store.asyncReducers[key] = reducer
-  store.replaceReducer(makeRootReducer(store.asyncReducers))
+
+  /**
+   * make an app reducer
+   */
+  let appReducer = makeRootReducer(store.asyncReducers)
+  /**
+ * root reducer,handle logout
+ */
+  if (typeof rootReducer === 'function') {
+    appReducer = rootReducer(appReducer)
+  }
+  /**
+   * replace store's reducers with appReducer
+   */
+  store.replaceReducer(appReducer)
 }
 
 export default makeRootReducer

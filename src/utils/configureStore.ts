@@ -19,14 +19,14 @@ if (process.env.NODE_ENV !== 'production') {
  * @param  {any} initialState
  * @param  {{key:string,reducer:Function}} rooterReducers
  */
-function configureStore(initialState: any, rooterReducers) {
-    const rooterReducer = makeRootReducer(rooterReducers)
+function configureStore(initialState: any, asyncReducers, rootReducer) {
+    const rooterReducer = makeRootReducer(asyncReducers)
 
     const store = composeEnhancers(
         getMiddleware()
     )(createStore)(rooterReducer, initialState, )
 
-    return configReducer(store, rooterReducers)
+    return configReducer(store, asyncReducers, rootReducer)
 
 }
 /**
@@ -46,16 +46,16 @@ function getMiddleware() {
  * @param  {any} store
  * @param  {{}} rooterReducers
  */
-function configReducer(store: any, rooterReducers) {
+function configReducer(store: any, asyncReducers, rootReducer) {
 
     // split reducer 
     /** 
-     * store rooterReducers first time or it will be lost
+     * store asyncReducers or it will be lost
      */
-    store.asyncReducers = { ...rooterReducers }
+    store.asyncReducers = { ...asyncReducers }
     // add injectReducer to store,so we no need to import from sub routes anymore
     store.injectReducer = ({ key, reducer }) => {
-        injectReducer(store, { key, reducer })
+        injectReducer(store, { key, reducer }, rootReducer)
     }
 
     return store
