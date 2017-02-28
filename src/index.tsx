@@ -108,6 +108,11 @@ const hake = (
    */
   ReactDOM.render(appRender, document.getElementById(target))
 
+  /**
+   * export store 
+   */
+  return {store}
+
 }
 
 export default hake
