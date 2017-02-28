@@ -57,7 +57,9 @@ const routes = [{
     component: App
 }]
 
-hake({routes})
+const app = hake({routes})
+
+app.start()
 
 ```
 
