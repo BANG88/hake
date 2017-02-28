@@ -11,7 +11,6 @@ import { syncHistoryWithStore } from 'react-router-redux'
 
 import configureStore from './utils/configureStore'
 
-
 export type Routes = (store: Store) => RouteConfig
 export interface options {
   /**
@@ -63,7 +62,6 @@ const defaultRender = ({store, routes, history}: Render) => <Provider store={sto
 /**
  * configure routes and others then start the app immediately
  * @param {options} options 
- * @param {string} target the target render to
  */
 const hake = (
   {
@@ -75,7 +73,6 @@ const hake = (
     render = defaultRender,
     middlewares
   }: options,
-  target = 'root'
 ) => {
 
   /**
@@ -106,14 +103,20 @@ const hake = (
   const appRender = render(renderParams)
 
   /**
-   * here we go
-   */
-  ReactDOM.render(appRender, document.getElementById(target))
-
-  /**
    * export store 
    */
-  return { store }
+  return {
+    store,
+    /**
+     * start the app
+     * @param {string} target The target app render to 
+     */
+    start: (target = 'root') =>
+      /**
+      * here we go
+      */
+      ReactDOM.render(appRender, document.getElementById(target))
+  }
 
 }
 
