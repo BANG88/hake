@@ -17,13 +17,15 @@ if (process.env.NODE_ENV !== 'production') {
 /**
  * configure store accept an initialState and a rooterReducer params
  * @param  {any} initialState
+ * @param  {{key:string,reducer:Function}} asyncReducers
  * @param  {{key:string,reducer:Function}} rooterReducers
+ * @param  {any} middlewares middlewares 
  */
-function configureStore(initialState: any, asyncReducers, rootReducer) {
+function configureStore({initialState, asyncReducers, rootReducer, middlewares = []}) {
     const rooterReducer = makeRootReducer(asyncReducers)
 
     const store = composeEnhancers(
-        getMiddleware()
+        getMiddleware(middlewares)
     )(createStore)(rooterReducer, initialState, )
 
     return configReducer(store, asyncReducers, rootReducer)
@@ -32,10 +34,11 @@ function configureStore(initialState: any, asyncReducers, rootReducer) {
 /**
  * get middlewares
  */
-function getMiddleware() {
+function getMiddleware(middlewares) {
     let middleware = [
         routerMiddleware(hashHistory),
         reduxPackMiddleware,
+        ...middlewares
     ]
 
     return applyMiddleware(...middleware)

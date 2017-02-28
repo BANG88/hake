@@ -44,6 +44,7 @@ export interface options {
    * @memberOf options
    */
   render?: Function
+  middlewares?
 }
 export interface Render {
   store
@@ -71,7 +72,8 @@ const hake = (
     asyncReducers = {},
     history = browserHistory,
     rootReducer,
-    render = defaultRender
+    render = defaultRender,
+    middlewares
   }: options,
   target = 'root'
 ) => {
@@ -79,7 +81,7 @@ const hake = (
   /**
    * configure store
    */
-  const store = configureStore(initialState, asyncReducers, rootReducer)
+  const store = configureStore({ initialState, asyncReducers, rootReducer, middlewares })
   /**
    * sync history with immutable support
    */
@@ -111,7 +113,7 @@ const hake = (
   /**
    * export store 
    */
-  return {store}
+  return { store }
 
 }
 
