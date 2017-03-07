@@ -11,7 +11,9 @@ let composeEnhancers = compose
  * disable redux tools on production env.
  */
 if (process.env.NODE_ENV !== 'production') {
-    composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    if (typeof window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ === 'function') {
+        composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    }
 }
 
 /**
@@ -21,7 +23,7 @@ if (process.env.NODE_ENV !== 'production') {
  * @param  {{key:string,reducer:Function}} rooterReducers
  * @param  {any} middlewares middlewares 
  */
-function configureStore({initialState, asyncReducers, rootReducer, middlewares = []}) {
+function configureStore({ initialState, asyncReducers, rootReducer, middlewares = [] }) {
     const rooterReducer = makeRootReducer(asyncReducers)
 
     const store = composeEnhancers(
