@@ -10,7 +10,6 @@ import { Provider } from 'react-redux'
 import { syncHistoryWithStore } from 'react-router-redux'
 
 import configureStore from './utils/configureStore'
-
 export type Routes = (store: Store) => RouteConfig
 export interface options {
   /**
@@ -53,7 +52,7 @@ export interface Render {
 /**
  * default render 
  */
-const defaultRender = ({store, routes, history}: Render) => <Provider store={store}>
+const defaultRender = ({ store, routes, history }: Render) => <Provider store={store}>
   <Router history={history}>
     {routes}
   </Router>
@@ -63,17 +62,15 @@ const defaultRender = ({store, routes, history}: Render) => <Provider store={sto
  * configure routes and others then start the app immediately
  * @param {options} options 
  */
-const hake = (
-  {
-    routes,
-    initialState = Map(),
-    asyncReducers = {},
-    history = browserHistory,
-    rootReducer,
-    render = defaultRender,
-    middlewares
-  }: options,
-) => {
+const hake = ({
+  initialState = Map(),
+  asyncReducers = {},
+  history = browserHistory,
+  render = defaultRender,
+  routes,
+  rootReducer,
+  middlewares
+  }: options) => {
 
   /**
    * configure store

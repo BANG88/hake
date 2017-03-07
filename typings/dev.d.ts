@@ -63,11 +63,6 @@ declare var require: WebpackRequire;
 declare var process: {
     env: {
         NODE_ENV?: string
+        [key: string]: any
     }
-}
-/**
- * fix antd 2.7.2 typing error will remove on the next release.
- */
-declare module '*package.json' {
-    export const version: string
 }
