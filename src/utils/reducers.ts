@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux-immutable'
-
+import { Store } from './configureStore'
 import routerReducer from './routerReducer'
 /**
  * make root reducers
@@ -17,7 +17,7 @@ export const makeRootReducer = (asyncReducers: {}) => {
  * @param {any} store
  * @param {{key:string,reducer:Function}} 
  */
-export const injectReducer = (store, { key, reducer }, rootReducer?: Function) => {
+export const injectReducer = (store: Store<any>, { key, reducer }, rootReducer?: Function) => {
   /**
    * add reducer to asyncReducers
    */

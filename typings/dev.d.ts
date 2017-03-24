@@ -1,27 +1,6 @@
 // A hack for the Redux DevTools Chrome extension.
-declare interface Window {
-    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: any;
-}
-/**
- * custom store for type check
- * 
- * @interface Store
- */
-declare interface Store {
-    /**     
-     * async reducers
-     * @type {{}}
-     * @memberOf Store
-     */
-    asyncReducers: {}
-    /**
-     * inject reducer
-     * @param  {{key:string} reducer will used to peek state
-     * @param  {Function}} reducer
-     */
-    injectReducer: (reducer: { key: string, reducer: Function }) => void
-    replaceReducer: (reducer: any) => void
-}
+
+
 
 /**
  * require

@@ -1,9 +1,30 @@
-import { middleware as reduxPackMiddleware } from 'redux-pack'
-import { createStore, applyMiddleware, compose } from 'redux'
+import hakeReduxMiddleware from 'hake-redux'
+import { createStore, applyMiddleware, compose, Store as ReduxStore } from 'redux'
 import { hashHistory } from 'react-router'
 import { routerMiddleware } from 'react-router-redux'
 
 import makeRootReducer, { injectReducer } from './reducers'
+
+/**
+ * custom store for type check
+ * 
+ * @interface Store
+ */
+export declare interface Store<S> extends ReduxStore<S> {
+    /**     
+     * async reducers
+     * @type {{}}
+     * @memberOf Store
+     */
+    asyncReducers: {}
+    /**
+     * inject reducer
+     * @param  {{key:string} reducer will used to peek state
+     * @param  {Function}} reducer
+     */
+    injectReducer: (reducer: { key: string, reducer: Function }) => void
+    replaceReducer: (reducer: any) => void
+}
 
 
 let composeEnhancers = compose
@@ -11,8 +32,12 @@ let composeEnhancers = compose
  * disable redux tools on production env.
  */
 if (process.env.NODE_ENV !== 'production') {
-    if (typeof window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ === 'function') {
-        composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    interface Window {
+        __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: any;
+    }
+    const win: Window = window
+    if (typeof win.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ === 'function') {
+        composeEnhancers = win.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     }
 }
 
@@ -23,27 +48,24 @@ if (process.env.NODE_ENV !== 'production') {
  * @param  {{key:string,reducer:Function}} rooterReducers
  * @param  {any} middlewares middlewares 
  */
-function configureStore({ initialState, asyncReducers, rootReducer, middlewares = [] }) {
-    const rooterReducer = makeRootReducer(asyncReducers)
+function configureStore({ initialState, asyncReducers, rootReducer, client, middlewares = [] }) {
 
-    const store = composeEnhancers(
-        getMiddleware(middlewares)
+    const rooterReducer = makeRootReducer(asyncReducers)
+    /**
+     * middleware
+     */
+    let middleware = [
+        routerMiddleware(hashHistory),
+        hakeReduxMiddleware(client),
+        ...middlewares
+    ]
+
+    const store: any = composeEnhancers(
+        applyMiddleware(...middleware)
     )(createStore)(rooterReducer, initialState, )
 
     return configReducer(store, asyncReducers, rootReducer)
 
-}
-/**
- * get middlewares
- */
-function getMiddleware(middlewares) {
-    let middleware = [
-        routerMiddleware(hashHistory),
-        reduxPackMiddleware,
-        ...middlewares
-    ]
-
-    return applyMiddleware(...middleware)
 }
 
 /**
@@ -51,7 +73,7 @@ function getMiddleware(middlewares) {
  * @param  {any} store
  * @param  {{}} rooterReducers
  */
-function configReducer(store: any, asyncReducers, rootReducer) {
+function configReducer<S>(store: Store<S>, asyncReducers, rootReducer) {
 
     // split reducer 
     /** 

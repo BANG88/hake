@@ -73,6 +73,15 @@ fbjs@^0.8.1, fbjs@^0.8.4:
     setimmediate "^1.0.5"
     ua-parser-js "^0.7.9"
 
+hake-redux@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/hake-redux/-/hake-redux-0.0.5.tgz#b5650df18732320c5e71a40f7235513e62d1746b"
+  dependencies:
+    deline "^1.0.4"
+    invariant "^2.2.2"
+    tslib "^1.6.0"
+    uuid "^3.0.1"
+
 history@^3.0.0:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/history/-/history-3.2.1.tgz#71c7497f4e6090363d19a6713bb52a1bfcdd99aa"
@@ -199,14 +208,6 @@ redux-immutable@^3.1.0:
   dependencies:
     immutable "^3.8.1"
 
-redux-pack@^0.1.4:
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/redux-pack/-/redux-pack-0.1.4.tgz#ce6be0f6070b6883494e320ef614c4a09b921c18"
-  dependencies:
-    deline "^1.0.4"
-    invariant "^2.2.2"
-    uuid "^3.0.1"
-
 redux@^3.6.0:
   version "3.6.0"
   resolved "https://registry.yarnpkg.com/redux/-/redux-3.6.0.tgz#887c2b3d0b9bd86eca2be70571c27654c19e188d"
@@ -227,6 +228,10 @@ strict-uri-encode@^1.0.0:
 symbol-observable@^1.0.2:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/symbol-observable/-/symbol-observable-1.0.4.tgz#29bf615d4aa7121bdd898b22d4b3f9bc4e2aa03d"
+
+tslib@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.6.0.tgz#cf36c93e02ae86a20fc131eae511162b869a6652"
 
 typescript@^2.1.6:
   version "2.1.6"

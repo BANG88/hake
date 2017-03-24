@@ -8,9 +8,10 @@ import { Map } from 'immutable'
 
 import { Provider } from 'react-redux'
 import { syncHistoryWithStore } from 'react-router-redux'
+import configureStore, { Store } from './utils/configureStore'
 
-import configureStore from './utils/configureStore'
-export type Routes = (store: Store) => RouteConfig
+export { Store }
+export type Routes = (store: Store<any>) => RouteConfig
 export interface options {
   /**
    * Can be a function with store parameter or a RouteConfig route
@@ -43,6 +44,8 @@ export interface options {
    */
   render?: Function
   middlewares?
+
+  client?: any
 }
 export interface Render {
   store
@@ -69,13 +72,14 @@ const hake = ({
   render = defaultRender,
   routes,
   rootReducer,
-  middlewares
+  middlewares,
+  client,
   }: options) => {
 
   /**
    * configure store
    */
-  const store = configureStore({ initialState, asyncReducers, rootReducer, middlewares })
+  const store = configureStore({ initialState, asyncReducers, rootReducer, middlewares, client })
   /**
    * sync history with immutable support
    */
