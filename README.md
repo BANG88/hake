@@ -20,7 +20,7 @@ This package include the following packages, the main idea is reuse these config
     "react-router-redux": "^4.0.8",
     "redux": "^3.6.0",
     "redux-immutable": "^3.1.0",
-    "redux-pack": "^0.1.4"
+    "hake-redux": "^0.0.5"
   }
 ```
 
@@ -64,6 +64,64 @@ app.start()
 ```
 
 For more informations please read the source file [take a look. ](./src/index.tsx)
+
+```ts
+// all options list here
+
+export interface options {
+    /**
+     * Can be a function with store parameter or a RouteConfig route
+     *
+     * @type {(Routes | RouteConfig)}
+     * @memberOf options
+     */
+    routes: Routes | RouteConfig;
+    /**
+     * Can be Map or any immutable type
+     *
+     *
+     * @memberOf options
+     */
+    initialState?: any;
+    /**
+     * Can be an object within {key:Function}
+     *
+     *
+     * @memberOf options
+     */
+    asyncReducers?: {};
+    history?: History;
+    rootReducer?: Function;
+    /**
+     * custom render,you can add other Provider like react-intl .
+     *
+     * @type {Function}
+     * @memberOf options
+     */
+    render?: Function;
+    middlewares?: any;
+    /**
+     * can use with hake-redux https://github.com/bang88/hake-redux#api
+     */
+    client?: any;
+}
+export interface Render {
+    store: any;
+    routes: RouteConfig;
+    history: History;
+}
+/**
+ * configure routes and others then start the app immediately
+ * @param {options} options
+ */
+declare const hake: ({initialState, asyncReducers, history, render, routes, rootReducer, middlewares, client}: options) => {
+    store: Store<{}>;
+    start: (target?: string) => Element;
+};
+export default hake;
+
+
+```
 
 **Note:** if you have complie errors please add this line 
 

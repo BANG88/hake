@@ -44,9 +44,12 @@ export interface options {
    */
   render?: Function
   middlewares?
-
+  /**
+   * can use with hake-redux https://github.com/bang88/hake-redux#api
+   */
   client?: any
 }
+
 export interface Render {
   store
   routes: RouteConfig
