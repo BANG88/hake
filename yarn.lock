@@ -91,9 +91,9 @@ follow-redirects@1.0.0:
   dependencies:
     debug "^2.2.0"
 
-hake-redux@^0.0.6:
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/hake-redux/-/hake-redux-0.0.6.tgz#70a32f1db146742a8e0a67475963b2050c485337"
+hake-redux@^0.0.7:
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/hake-redux/-/hake-redux-0.0.7.tgz#21bd368acc134dfa08a2c4cdc2f0c1245bfedf54"
   dependencies:
     axios "^0.15.3"
     deline "^1.0.4"
