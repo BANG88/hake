@@ -123,14 +123,6 @@ export default hake;
 
 ```
 
-**Note:** if you have complie errors please add this line 
-
-```ts
-/// <reference path="path/to/node_modules/hake/typings/index.d.ts" />
-
-// your code came from here .
-
-```
 
 ## Contribute
 
