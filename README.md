@@ -94,7 +94,7 @@ modify `index.tsx` to:
 
 ```
 
-Thats it, now you have a running react app but with redux supported.
+Thats it, now you have a running react app but with redux react-router supported.
 
 ## Usage
 
