@@ -43,6 +43,59 @@ yarn add hake
 
 ```
 
+## Get started in seconds with https://github.com/wmonk/create-react-app-typescript
+
+- Create your awesome app using `create-react-app my-app --scripts-version=react-scripts-ts`
+- Start up a local server
+
+```sh
+
+cd my-app
+
+yarn start
+
+```
+
+Now you have a react app running at http://localhost:3000/
+
+- Add hake support
+
+```sh
+yarn add hake
+```
+modify `index.tsx` to:
+
+```diff
+--- a/my-app/src/index.tsx
++++ b/my-app/src/index.tsx
+@@ -1,9 +1,16 @@
+-import * as React from 'react';
+-import * as ReactDOM from 'react-dom';
+ import App from './App';
+ import './index.css';
+
+-ReactDOM.render(
+-  <App />,
+-  document.getElementById('root') as HTMLElement
+-);
++import hake from 'hake'
++
++// your routes configurations or
++// a function please read the source code get more informations
++
++const routes = [{
++  path: '/',
++  component: App
++}]
++
++const app = hake({ routes })
++
++app.start()
+
+```
+
+Thats it, now you have a running react app but with redux supported.
+
 ## Usage
 
 ```ts
