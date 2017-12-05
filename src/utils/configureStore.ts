@@ -7,11 +7,11 @@ import makeRootReducer, { injectReducer } from './reducers'
 
 /**
  * custom store for type check
- * 
+ *
  * @interface Store
  */
 export declare interface Store<S> extends ReduxStore<S> {
-    /**     
+    /**
      * async reducers
      * @type {{}}
      * @memberOf Store
@@ -35,7 +35,7 @@ if (process.env.NODE_ENV !== 'production') {
     interface Window {
         __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: any;
     }
-    const win: Window = window
+    const win = window as Window
     if (typeof win.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ === 'function') {
         composeEnhancers = win.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     }
@@ -46,7 +46,7 @@ if (process.env.NODE_ENV !== 'production') {
  * @param  {any} initialState
  * @param  {{key:string,reducer:Function}} asyncReducers
  * @param  {{key:string,reducer:Function}} rooterReducers
- * @param  {any} middlewares middlewares 
+ * @param  {any} middlewares middlewares
  */
 function configureStore({ initialState, asyncReducers, rootReducer, client, middlewares = [] }) {
 
@@ -61,7 +61,7 @@ function configureStore({ initialState, asyncReducers, rootReducer, client, midd
     ]
 
     const store: any = composeEnhancers(
-        applyMiddleware(...middleware)
+        applyMiddleware(...middleware as any)
     )(createStore)(rooterReducer, initialState, )
 
     return configReducer(store, asyncReducers, rootReducer)
@@ -75,8 +75,8 @@ function configureStore({ initialState, asyncReducers, rootReducer, client, midd
  */
 function configReducer<S>(store: Store<S>, asyncReducers, rootReducer) {
 
-    // split reducer 
-    /** 
+    // split reducer
+    /**
      * store asyncReducers or it will be lost
      */
     store.asyncReducers = { ...asyncReducers }
